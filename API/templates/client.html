@@ -37,7 +37,20 @@
         .then(data => {
             var resultadoElement = document.getElementById('resultado');
             resultadoElement.innerHTML = 'Documento gerado: ' + JSON.stringify(data);
+            fadeIn(resultadoElement);
         })
+      }
+
+      function fadeIn(element) {
+        var opacity = 0;
+        var interval = setInterval(function () {
+          if (opacity < 1) {
+            opacity += 0.1;
+            element.style.opacity = opacity;
+          } else {
+            clearInterval(interval);
+          }
+        }, 100);
       }
   </script>
 
