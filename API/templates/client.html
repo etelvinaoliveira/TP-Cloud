@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <title>Recommend Playlist</title>
+</head>
+<body>
+  <h1> Spotify Playlists</h1>
+  <div>
+    <p>Type your favorite songs</p>
+    <form action="/api/recommender" method="post" onsubmit="converterParaJSON(); return false;">
+      <input type="text" name="playlist" id="playlist">
+      <button type="button" onclick="converterParaJSON()">Send</button>
+    </form>
+  </div>
+  <script>
+    function converterParaJSON() {
+        var playlist = document.getElementById('playlist').value;
+        var songs = playlist.split(", ");
+        var dadosJSON = {
+          "songs": songs
+        };
+
+        var dadosJSONString = JSON.stringify(dadosJSON);
+
+        fetch('/api/recommender', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dadosJSON)
+        })
+        .then(response => response.json())
+        .then(data => {
+            var resultadoElement = document.getElementById('resultado');
+            resultadoElement.innerHTML = 'Documento gerado: ' + JSON.stringify(data);
+        })
+      }
+  </script>
+
+  <div id="resultado"></div>
+
+</body>
+</html>
