@@ -4,13 +4,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/style.css">
   <title>Recommend Playlist</title>
 </head>
 <body>
-  <h1> Spotify Playlists</h1>
+  <h1> Spotify Playlists</h1
   <div>
     <p>Type your favorite songs</p>
     <form action="/api/recommender" method="post" onsubmit="converterParaJSON(); return false;">
@@ -39,7 +37,20 @@
         .then(data => {
             var resultadoElement = document.getElementById('resultado');
             resultadoElement.innerHTML = 'Documento gerado: ' + JSON.stringify(data);
+            fadeIn(resultadoElement);
         })
+      }
+
+      function fadeIn(element) {
+        var opacity = 0;
+        var interval = setInterval(function () {
+          if (opacity < 1) {
+            opacity += 0.1;
+            element.style.opacity = opacity;
+          } else {
+            clearInterval(interval);
+          }
+        }, 100);
       }
   </script>
 
