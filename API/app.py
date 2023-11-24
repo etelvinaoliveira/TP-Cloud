@@ -16,8 +16,8 @@ def recommend():
     recommendation = model.predict(songs)
     resp = {
        "playlist_ids":recommendation[:10],
-       "version": 1,
-       "model_date": 1 
+       "version": model.version,
+       "model_date": model.model_date 
     }
     return jsonify(resp)
 

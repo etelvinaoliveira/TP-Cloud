@@ -4,7 +4,7 @@
 # If you need more help, visit the Dockerfile reference guide at
 # https://docs.docker.com/engine/reference/builder/
 
-ARG PYTHON_VERSION=3.9
+ARG PYTHON_VERSION=3.9.13
 FROM python:${PYTHON_VERSION}-slim-bullseye as base
 
 # Prevents Python from writing pyc files.
@@ -13,6 +13,11 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Keeps Python from buffering stdout and stderr to avoid situations where
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
+
+ENV MODEL_PATH='/opt/tmp/model.pkl'
+
+ARG DATASET=https://raw.githubusercontent.com/etelvinaoliveira/TP-Cloud/main/datasets/2023_spotify_ds1.csv
+ENV DATASET_PATH=${DATASET}
 
 WORKDIR /app
 
@@ -37,7 +42,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install -r requirements.txt
 
 # Switch to the non-privileged user to run the application.
-USER appuser
+USER root
 
 # Copy the source code into the container.
 COPY . .
