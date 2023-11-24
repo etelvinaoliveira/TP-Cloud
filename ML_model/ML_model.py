@@ -1,6 +1,7 @@
 import pandas as pd
 from fpgrowth_py import fpgrowth
 import os
+import datetime
 
 df = pd.read_csv(os.getenv("DATASET_PATH"))
 
@@ -20,9 +21,11 @@ for rule in rules:
   new_rules.append(new_rule)
 
 class Model:
-  def __init__(self, rules, freqItemSet):
+  def __init__(self, rules, freqItemSet, version=1):
     self.rules = rules
     self.freqItemSet = freqItemSet
+    self.model_date = datetime.datetime.now()
+    self.version = version
   def predict(self, songs):
     most_freq_pids = {}
     for rule in self.rules:
@@ -36,9 +39,14 @@ class Model:
     recommendation = [x[0] for x in recommendation]
     return recommendation
 
-model = Model(new_rules, freqItemSet)
-
 import dill
 
-file = open(os.getenv("MODEL_PATH"),  'wb')
-dill.dump(model, file)
+try:
+  with open(os.getenv("MODEL_PATH"), "rb") as file:
+    old_model = dill.load(file)
+    model = Model(new_rules, freqItemSet, old_model.version+1)
+except FileNotFoundError:
+  model = Model(new_rules, freqItemSet)
+
+with open(os.getenv("MODEL_PATH"),  'wb') as file:
+  dill.dump(model, file)

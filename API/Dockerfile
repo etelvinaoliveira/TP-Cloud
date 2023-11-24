@@ -4,7 +4,7 @@
 # If you need more help, visit the Dockerfile reference guide at
 # https://docs.docker.com/engine/reference/builder/
 
-ARG PYTHON_VERSION=3.9
+ARG PYTHON_VERSION=3.9.13
 FROM python:${PYTHON_VERSION}-slim-bullseye as base
 
 # Prevents Python from writing pyc files.
@@ -14,7 +14,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
 
-ENV MODEL_PATH='/tmp/model.pkl'
+ENV MODEL_PATH='/opt/tmp/model.pkl'
 
 WORKDIR /app
 
@@ -50,7 +50,7 @@ USER appuser
 COPY . .
 
 # Expose the port that the application listens on.
-EXPOSE 5000
+EXPOSE 32186
 
 # Run the application.
-CMD python -m flask run --host=0.0.0.0
+CMD python -m flask run --host=0.0.0.0 --port 32186
