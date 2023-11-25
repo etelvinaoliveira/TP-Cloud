@@ -31,7 +31,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker Image
-        run: docker push indramatsiendra/playlist_recommender_model
+        run: |
+          docker push indramatsiendra/playlist_recommender_model:$version
+          docker push indramatsiendra/playlist_recommender_model:$latest
 
       - name: Deploy to Kubernetes
         run: |
