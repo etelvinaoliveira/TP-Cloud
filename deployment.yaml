@@ -18,7 +18,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: playlist-recommender-deployment:${version}
+  name: playlist-recommender-deployment:${version}:${version}
 spec:
   replicas: 1
   selector:
