@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: indraribeiro
-  name: project2-pv-indraribeiro
+  namespace: etelvinaoliveira
+  name: project2-pv-etelvinaoliveira
   labels:
     type: local
 spec:
@@ -13,7 +13,7 @@ spec:
   accessModes:
     - ReadWriteMany
   storageClassName: standard
-  volumeName: project2-pv-indraribeiro
+  volumeName: project2-pv-etelvinaoliveira
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -32,7 +32,7 @@ spec:
       volumes:
         - name: playlist-recommender-volume
           persistentVolumeClaim:
-            claimName: project2-pv-indraribeiro
+            claimName: project2-pv-etelvinaoliveira
       containers:
       - name: playlist-recommender-model
         image: docker.io/indramatsiendra/playlist_recommender_model:1
@@ -40,11 +40,11 @@ spec:
         - containerPort: 32179
         volumeMounts:
           - name: playlist-recommender-volume
-            mountPath: "/opt/tmp"
+            mountPath: "opt/tmp"
       - name: playlist-recommender-api
         image: docker.io/indramatsiendra/playlist_recommender_api:1
         ports:
         - containerPort: 32186
         volumeMounts:
           - name: playlist-recommender-volume
-            mountPath: "/opt/tmp"
+            mountPath: "opt/tmp"
