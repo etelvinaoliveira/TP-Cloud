@@ -36,8 +36,8 @@ jobs:
           docker push indramatsiendra/playlist_recommender_api:$version
           docker push indramatsiendra/playlist_recommender_api:latest
 
-#      - name: Modify deployment.yaml
-#        run: |
-#          jsonContent=$(cat datasets/dataset_path.json)
-#          version=$(echo $jsonContent | jq -r .version)
-#          sed -i "s/\(metadata:\s*name:\s*\).*/\1playlist-recommender-deployment:${version}
+      - name: Modify deployment.yaml
+        run: |
+          jsonContent=$(cat datasets/dataset_path.json)
+          version=$(echo $jsonContent | jq -r .version)
+          sed -i "s/\(metadata:\s*name:\s*\).*/\1playlist-recommender-deployment:${version}
