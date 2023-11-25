@@ -43,7 +43,7 @@ jobs:
           version=$(echo $jsonContent | jq -r .version)
           ls
           cd $GITHUB_WORKSPACE
-          awk -F: '{if($2=="name"){$2="playlist-recommender-deployment:${version}";}}1' deployment.yaml
+          sed -i 's/\(name: playlist-recommender-deployment\)/\1:${{version}}/' deployment.yaml
 
           git config --global user.name 'etelvinaoliveira'
           git config --global user.email 'etelvina.oliveira2003@gmail.com'
