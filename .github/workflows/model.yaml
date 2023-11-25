@@ -38,6 +38,7 @@ jobs:
           docker push indramatsiendra/playlist_recommender_model:latest
 
       - name: Modify deployment.yaml and push to github
+        uses: actions/checkout@v2
         run: |
           jsonContent=$(cat datasets/dataset_path.json)
           version=$(echo $jsonContent | jq -r .version)
