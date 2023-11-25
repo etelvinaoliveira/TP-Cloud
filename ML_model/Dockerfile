@@ -16,8 +16,11 @@ ENV PYTHONUNBUFFERED=1
 
 ENV MODEL_PATH='/opt/tmp/model.pkl'
 
-ARG DATASET=https://raw.githubusercontent.com/etelvinaoliveira/TP-Cloud/main/datasets/2023_spotify_ds1.csv
-ENV DATASET_PATH=${DATASET}
+ARG DATASET_PATH='https://raw.githubusercontent.com/etelvinaoliveira/TP-Cloud/main/datasets/2023_spotify_ds1.csv'
+ENV DATASET_PATH=${DATASET_PATH}
+
+ARG MODEL_VERSION='1.0.0'
+ENV MODEL_VERSION=${MODEL_VERSION}
 
 WORKDIR /app
 

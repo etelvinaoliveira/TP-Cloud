@@ -21,7 +21,7 @@ for rule in rules:
   new_rules.append(new_rule)
 
 class Model:
-  def __init__(self, rules, freqItemSet, version=1):
+  def __init__(self, rules, freqItemSet, version):
     self.rules = rules
     self.freqItemSet = freqItemSet
     self.model_date = datetime.datetime.now()
@@ -41,12 +41,7 @@ class Model:
 
 import dill
 
-try:
-  with open(os.getenv("MODEL_PATH"), "rb") as file:
-    old_model = dill.load(file)
-    model = Model(new_rules, freqItemSet, old_model.version+1)
-except FileNotFoundError:
-  model = Model(new_rules, freqItemSet)
+model = Model(new_rules, freqItemSet, os.getenv("MODEL_VERSION"))
 
 with open(os.getenv("MODEL_PATH"),  'wb') as file:
   dill.dump(model, file)

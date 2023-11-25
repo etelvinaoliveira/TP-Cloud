@@ -35,14 +35,14 @@ spec:
             claimName: project2-pv-etelvinaoliveira
       containers:
       - name: playlist-recommender-model
-        image: docker.io/indramatsiendra/playlist_recommender_model:1
+        image: docker.io/indramatsiendra/playlist_recommender_model:latest
         ports:
         - containerPort: 32179
         volumeMounts:
           - name: playlist-recommender-volume
             mountPath: "opt/tmp"
       - name: playlist-recommender-api
-        image: docker.io/indramatsiendra/playlist_recommender_api:1
+        image: docker.io/indramatsiendra/playlist_recommender_api:latest
         ports:
         - containerPort: 32186
         volumeMounts:
