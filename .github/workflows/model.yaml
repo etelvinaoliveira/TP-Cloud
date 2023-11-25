@@ -45,7 +45,7 @@ jobs:
 
           git config --global user.name 'etelvinaoliveira'
           git config --global user.email 'etelvina.oliveira2003@gmail.com'
-          git remote set-url origin https://x-access-token:${{ secrets.DOCKER_TOKEN }}@github.com/etelvinaoliveira/TP-Cloud.git
+          git remote set-url origin https://etelvinaoliveira:${{ secrets.DOCKER_TOKEN }}@github.com/etelvinaoliveira/TP-Cloud.git
 
           git add deployment.yaml
           git commit -m "Update deployment.yaml through github workflow" 
