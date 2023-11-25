@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - ML_model/**
-      - dataset_path.json
+      - datasets/dataset_path.json
 
 jobs:
   build-and-deploy:
@@ -25,18 +25,20 @@ jobs:
       
       - name: Build Docker Image
         run: |
-          jsonContent=$(cat dataset_path.json)
+          jsonContent=$(cat datasets/dataset_path.json)
           datasetUrl=$(echo $jsonContent | jq -r .path)
           version=$(echo $jsonContent | jq -r .version)
           docker build --build-arg DATASET_PATH=$datasetUrl --build-arg MODEL_VERSION=$version -t indramatsiendra/playlist_recommender_model:$version -t indramatsiendra/playlist_recommender_model:latest ./ML_model
 
       - name: Push Docker Image
         run: |
-          jsonContent=$(cat dataset_path.json)
+          jsonContent=$(cat datasets/dataset_path.json)
           version=$(echo $jsonContent | jq -r .version)
           docker push indramatsiendra/playlist_recommender_model:$version
           docker push indramatsiendra/playlist_recommender_model:latest
 
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f ./deployment.yaml
+#      - name: Modify deployment.yaml
+#        run: |
+#          jsonContent=$(cat datasets/dataset_path.json)
+#          version=$(echo $jsonContent | jq -r .version)
+#          sed -i "s/\(metadata:\s*name:\s*\).*/\1playlist-recommender-api-deployment:${version}
