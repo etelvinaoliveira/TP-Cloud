@@ -41,4 +41,4 @@ jobs:
         run: |
           jsonContent=$(cat datasets/dataset_path.json)
           version=$(echo $jsonContent | jq -r .version)
-          sed -i "s/\(metadata:\s*name:\s*\).*/\1playlist-recommender-api-deployment:${version}
+          sed -i "s/\(metadata:\s*name:\s*\).*/\1playlist-recommender-api-deployment:${version}"
