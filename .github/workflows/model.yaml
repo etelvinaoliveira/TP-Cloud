@@ -41,6 +41,8 @@ jobs:
         run: |
           jsonContent=$(cat datasets/dataset_path.json)
           version=$(echo $jsonContent | jq -r .version)
+          ls
+          cd $GITHUB_WORKSPACE
           sed -i "s/\(metadata:\s*name:\s*.*\)/\1playlist-recommender-deployment:${version}/" deployment.yaml
 
           git config --global user.name 'etelvinaoliveira'
