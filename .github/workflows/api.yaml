@@ -19,10 +19,10 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          jsonContent=$(cat ../../dataset_path.json)
+          jsonContent=$(cat dataset_path.json)
           datasetUrl=$(echo $jsonContent | jq -r .path)
           version=$(echo $jsonContent | jq -r .version)
-          docker buildx build --platform linux/amd64 -t indramatsiendra/playlist_recommender_api:$version -t indramatsiendra/playlist_recommender_api:latest ../../API
+          docker buildx build --platform linux/amd64 -t indramatsiendra/playlist_recommender_api:$version -t indramatsiendra/playlist_recommender_api:latest ./API
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
