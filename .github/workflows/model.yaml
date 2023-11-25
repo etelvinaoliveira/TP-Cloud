@@ -20,7 +20,7 @@ jobs:
       - name: Build Docker Image
         run: |
           cd ML_model
-          jsonContent=$(cat dataset_path.json)
+          jsonContent=$(cat ../dataset_path.json)
           datasetUrl=$(echo $jsonContent | jq -r .path)
           version=$(echo $jsonContent | jq -r .version)
           docker buildx build --platform linux/amd64 --build-arg DATASET_PATH=$datasetUrl --build-arg MODEL_VERSION=$version -t indramatsiendra/playlist_recommender_model:$version -t indramatsiendra/playlist_recommender_model:latest .

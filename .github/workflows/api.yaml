@@ -20,7 +20,7 @@ jobs:
       - name: Build Docker Image
         run: |
           cd API
-          jsonContent=$(cat dataset_path.json)
+          jsonContent=$(cat ../dataset_path.json)
           version=$(echo $jsonContent | jq -r .version)
           docker buildx build --platform linux/amd64 -t indramatsiendra/playlist_recommender_api:$version -t indramatsiendra/playlist_recommender_api:latest .
           cd ..
