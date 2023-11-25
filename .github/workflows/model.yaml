@@ -19,10 +19,12 @@ jobs:
 
       - name: Build Docker Image
         run: |
+          cd ML_model
           jsonContent=$(cat dataset_path.json)
           datasetUrl=$(echo $jsonContent | jq -r .path)
           version=$(echo $jsonContent | jq -r .version)
-          docker buildx build --platform linux/amd64 --build-arg DATASET_PATH=$datasetUrl --build-arg MODEL_VERSION=$version -t indramatsiendra/playlist_recommender_model:$version -t indramatsiendra/playlist_recommender_model:latest ./ML_model
+          docker buildx build --platform linux/amd64 --build-arg DATASET_PATH=$datasetUrl --build-arg MODEL_VERSION=$version -t indramatsiendra/playlist_recommender_model:$version -t indramatsiendra/playlist_recommender_model:latest .
+          cd ..
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
@@ -39,4 +41,4 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f caminho/para/seu/deployment.yaml
+          kubectl apply -f ./deployment.yaml
