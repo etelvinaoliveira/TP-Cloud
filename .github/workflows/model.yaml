@@ -32,8 +32,10 @@ jobs:
 
       - name: Push Docker Image
         run: |
+          jsonContent=$(cat dataset_path.json)
+          version=$(echo $jsonContent | jq -r .version)
           docker push indramatsiendra/playlist_recommender_model:$version
-          docker push indramatsiendra/playlist_recommender_model:$latest
+          docker push indramatsiendra/playlist_recommender_model:latest
 
       - name: Deploy to Kubernetes
         run: |

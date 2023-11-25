@@ -20,7 +20,6 @@ jobs:
       - name: Build Docker Image
         run: |
           jsonContent=$(cat dataset_path.json)
-          datasetUrl=$(echo $jsonContent | jq -r .path)
           version=$(echo $jsonContent | jq -r .version)
           docker buildx build --platform linux/amd64 -t indramatsiendra/playlist_recommender_api:$version -t indramatsiendra/playlist_recommender_api:latest ./API
 
@@ -32,8 +31,10 @@ jobs:
 
       - name: Push Docker Image
         run: |
+          jsonContent=$(cat dataset_path.json)
+          version=$(echo $jsonContent | jq -r .version)
           docker push indramatsiendra/playlist_recommender_api:$version
-          docker push indramatsiendra/playlist_recommender_api:$latest
+          docker push indramatsiendra/playlist_recommender_api:latest
 
       - name: Deploy to Kubernetes
         run: |
