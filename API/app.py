@@ -1,7 +1,3 @@
-#LEMBRETE: $ export FLASK_APP=<nomeDesteArquivoSem.py>
-# passar isso de parametro do Dockerfile: flask run --host=0.0.0.0
-#IMPORTANTE: especificar a versão do python que rodamos o modelo e o flask, precisa ser a mesma senão o pickle dá erro
-
 from flask import Flask, request, jsonify, render_template
 import dill
 import os
