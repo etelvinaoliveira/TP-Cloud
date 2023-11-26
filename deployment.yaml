@@ -20,7 +20,7 @@ kind: Deployment
 metadata:
   name: playlist-recommender-deployment-1.0.18
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: indramatsiendra-playlist-recommender
