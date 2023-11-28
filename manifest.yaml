@@ -1,0 +1,10 @@
+project: etelvinaoliveira-project
+source:
+  repoURL: 'https://github.com/etelvinaoliveira/TP-Cloud.git'
+  path: .
+destination:
+  server: 'https://kubernetes.default.svc/'
+  namespace: etelvinaoliveira
+syncPolicy:
+  automated:
+    prune: true
